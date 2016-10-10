@@ -28,14 +28,20 @@ export class FoodService {
 
     private extractDataJSON(res: Response) {
         console.log("Response: " + res);
+        console.log("Response Text: " + res.text());
+
         let body: any;
         if (res.text()) {
+            console.log("in IF")
             body = res.json();
+            console.log("In service extractDataJSON() body: ");
+            console.log(body);
+            return body || {};
         }
-        console.log("In service extractDataJSON() body: ");
-        console.log(body);
-
-        return body || {};
+        
+        else {
+        return {'message': 'Response in not a JSON'};
+        }
     }
 
 
@@ -54,7 +60,16 @@ export class FoodService {
         console.log("URL: " + url);
         return this.http
             .get(url, { headers: this.headersJSON })
-            .map(() => this.extractDataJSON)
+            .map(this.extractDataJSON)
+            .catch(this.handleError);
+    }
+
+    getFoodByChar(char: string): Observable<any> {
+        const url = `${this.foodUrl}/search/${char}`;
+        console.log("URL: " + url);
+        return this.http
+            .get(url, { headers: this.headersJSON })
+            .map(this.extractDataJSON)
             .catch(this.handleError);
     }
 }

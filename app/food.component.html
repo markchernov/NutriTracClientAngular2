@@ -1,6 +1,7 @@
 <h2>Current Food</h2>
 <div>
   <label>Food Ndbno:</label> <input #foodNdbno value="1225"/>
+  <label>Food Name:</label> <input #foodName value="" (keyup)="onKey($event)"/>
   <button (click)="getFoodByNdbno(foodNdbno.value);">
     Get Food By ID
   </button>
