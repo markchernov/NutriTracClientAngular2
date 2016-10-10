@@ -5,6 +5,7 @@ import { DashboardComponent }   from './dashboard.component';
 import { HeroesComponent }      from './heroes.component';
 import { HeroDetailComponent }  from './hero-detail.component';
 import { UsersComponent }      from './user.component';
+import { FoodsComponent }      from './food.component';
 
 const appRoutes: Routes = [
   {
@@ -27,6 +28,10 @@ const appRoutes: Routes = [
    {
     path: 'users',
     component: UsersComponent
+  },
+  {
+    path: 'foods',
+    component: FoodsComponent
   }
 ];
 

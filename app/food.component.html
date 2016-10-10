@@ -1,0 +1,34 @@
+<h2>Current Food</h2>
+<div>
+  <label>Food Ndbno:</label> <input #foodNdbno value="1225"/>
+  <button (click)="getFoodByNdbno(foodNdbno.value);">
+    Get Food By ID
+  </button>
+    <button (click)="getAllFoods();">
+    Get All Foods
+  </button>
+</div>
+
+<div *ngIf="returnedFood">
+  <h2>
+    {{returnedFood | json}} 
+  </h2>
+  is returned food
+</div>
+
+<div *ngIf="errorMessage">
+  <h2>
+    {{errorMessage}} 
+  </h2>
+  is an error
+</div>
+
+
+<ul class="foods">
+    <li *ngFor="let food of foods" (click)="onSelect(food)"
+      [class.selected]="food === selectedFood">
+    <span class="badge">{{food.ndbno}}</span>
+    <span>{{food.name}}</span>
+</li>
+
+</ul>

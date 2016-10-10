@@ -16,17 +16,13 @@ export class UserService {
 
   private headersJSON = new Headers({
     'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': 'true', 'Access-Control-Allow-Credentials': 'true',
+    //'Access-Control-Allow-Origin': 'true', 'Access-Control-Allow-Credentials': 'true',
   });
   private headersText = new Headers({ 'Content-Type': 'application/text' });
 
-
-
-
-  private userUrl = 'https://nutritrac-server-markche.c9users.io/login';  // URL to web api
+  private userUrl = 'https://nutritrac-server-markche.c9users.io/users/login';  // URL to web api
   private pingUrl = 'https://nutritrac-server-markche.c9users.io/ping';  // URL to web api
-  private pingJavaUrl = 'http://markche.com:8080/NutriTrac/rest/ping';  // URL to web api
-  private testUrl = 'http://jsonplaceholder.typicode.com/posts/1';  // URL to web api
+ 
 
 
   constructor(private http: Http,
@@ -102,31 +98,31 @@ export class UserService {
 
 
 
-  update(user: User): Promise<User> {
-    const url = `${this.userUrl}/${user.email}`;
-    return this.http
-      .put(url, JSON.stringify(user), { headers: this.headersJSON })
-      .toPromise()
-      .then(() => user)
-      .catch(this.handleError);
-  }
+  // update(user: User): Promise<User> {
+  //   const url = `${this.userUrl}/${user.email}`;
+  //   return this.http
+  //     .put(url, JSON.stringify(user), { headers: this.headersJSON })
+  //     .toPromise()
+  //     .then(() => user)
+  //     .catch(this.handleError);
+  // }
 
 
-  create(name: string): Promise<User> {
-    return this.http
-      .post(this.userUrl, JSON.stringify({ name: name }), { headers: this.headersJSON })
-      .toPromise()
-      .then(res => res.json().data)
-      .catch(this.handleError);
-  }
+  // create(name: string): Promise<User> {
+  //   return this.http
+  //     .post(this.userUrl, JSON.stringify({ name: name }), { headers: this.headersJSON })
+  //     .toPromise()
+  //     .then(res => res.json().data)
+  //     .catch(this.handleError);
+  // }
 
-  delete(id: number): Promise<void> {
-    const url = `${this.userUrl}/${id}`;
-    return this.http.delete(url, { headers: this.headersJSON })
-      .toPromise()
-      .then(() => null)
-      .catch(this.handleError);
-  }
+  // delete(id: number): Promise<void> {
+  //   const url = `${this.userUrl}/${id}`;
+  //   return this.http.delete(url, { headers: this.headersJSON })
+  //     .toPromise()
+  //     .then(() => null)
+  //     .catch(this.handleError);
+  // }
 
 
 
