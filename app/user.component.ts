@@ -57,8 +57,6 @@ export class UsersComponent {
     console.log("Returned in user.component.ts : ");
     console.log(returned);
 
-    
-
    }
 
 

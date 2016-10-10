@@ -1,3 +1,5 @@
+// Beutify Alt Shift F
+
 import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule }   from '@angular/forms';
@@ -26,7 +28,7 @@ import { UsersComponent }       from './user.component';
     BrowserModule,
     FormsModule,
     HttpModule,
-    InMemoryWebApiModule.forRoot(InMemoryDataService, {passThruUnknownUrl: true}),
+    //InMemoryWebApiModule.forRoot(InMemoryDataService, {passThruUnknownUrl: true}),
     routing,  
   ],
   declarations: [
