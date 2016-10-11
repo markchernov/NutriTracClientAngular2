@@ -13,6 +13,7 @@ export class FoodService {
     });
 
     private foodUrl = 'https://nutritrac-server-markche.c9users.io/foods';  // URL to web api
+    private measureUrl = 'https://nutritrac-server-markche.c9users.io/measures';  // URL to web api
 
     constructor(private http: Http,
 
@@ -66,6 +67,15 @@ export class FoodService {
 
     getFoodByChar(char: string): Observable<any> {
         const url = `${this.foodUrl}/search/${char}`;
+        console.log("URL: " + url);
+        return this.http
+            .get(url, { headers: this.headersJSON })
+            .map(this.extractDataJSON)
+            .catch(this.handleError);
+    }
+
+     getMeasureByFoodNdbno(ndbno: string): Observable<any> {
+        const url = `${this.measureUrl}/${ndbno}`;
         console.log("URL: " + url);
         return this.http
             .get(url, { headers: this.headersJSON })

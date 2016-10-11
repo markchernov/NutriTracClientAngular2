@@ -1,20 +1,29 @@
-<h2>Current Food</h2>
+<h2>Search Food</h2>
 <div>
-  <label>Food Ndbno:</label> <input #foodNdbno value="1225"/>
-  <label>Food Name:</label> <input #foodName value="" (keyup)="onKey($event)"/>
-  <button (click)="getFoodByNdbno(foodNdbno.value);">
-    Get Food By ID
-  </button>
+   <label>Food Name:</label> 
+   <input #foodName value="" (keyup)="onKey($event)"/>
+    {{foodCount | number}} 
+  <!--<label>Food Ndbno:</label> <input #foodNdbno value="1225"/>-->
+  <!--<button (click)="getFoodByNdbno(foodNdbno.value);">
+    Get Food By ID-->
+  <!--</button>
     <button (click)="getAllFoods();">
     Get All Foods
-  </button>
+  </button>-->
 </div>
 
-<div *ngIf="returnedFood">
+<!--<div *ngIf="returnedFood">
   <h2>
     {{returnedFood | json}} 
   </h2>
   is returned food
+</div>-->
+
+<div *ngIf="selectedFood">
+  <h2> Food Id: {{selectedFood.ndbno}}
+       Food Name: {{selectedFood.name}} 
+  </h2>
+  is selected food
 </div>
 
 <div *ngIf="errorMessage">
@@ -26,10 +35,37 @@
 
 
 <ul class="foods">
-    <li *ngFor="let food of foods" (click)="onSelect(food)"
+    <li *ngFor="let food of foods" (click)="onSelectFood(food)"
       [class.selected]="food === selectedFood">
+    
     <span class="badge">{{food.ndbno}}</span>
     <span>{{food.name}}</span>
 </li>
 
 </ul>
+
+<div *ngIf="selectedMeasure">
+  <h2>Measure Value: {{selectedMeasure.value}}
+      Measure Eqv: {{selectedMeasure.eqv}} 
+  </h2>
+  is selected fmeasure
+</div>
+
+
+
+<div *ngIf="measures">
+
+  Food Measures:
+
+<ul class="measures">
+    <li *ngFor="let measure of measures" (click)="onSelectMeasure(measure)"
+      [class.selected]="measure === selectedMeasure">
+    <span class="badge">Label: {{measure.label}}</span>
+    <span>Eqv: {{measure.eqv}}</span>
+    <span>Qty: {{measure.qty}}</span>
+    <span>Value: {{measure.value}}</span>
+</li>
+
+</ul>
+</div>
+

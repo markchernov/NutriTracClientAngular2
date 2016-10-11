@@ -30,7 +30,7 @@ import { FoodsComponent }       from './food.component';
     BrowserModule,
     FormsModule,
     HttpModule,
-    //InMemoryWebApiModule.forRoot(InMemoryDataService, {passThruUnknownUrl: true}),
+    InMemoryWebApiModule.forRoot(InMemoryDataService, {passThruUnknownUrl: true}),
     routing,  
   ],
   declarations: [
