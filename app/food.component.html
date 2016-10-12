@@ -34,7 +34,7 @@
 </div>
 
 
-<ul class="foods">
+<ul class="heroes">
     <li *ngFor="let food of foods" (click)="onSelectFood(food)"
       [class.selected]="food === selectedFood">
     
@@ -48,8 +48,30 @@
   <h2>Measure Value: {{selectedMeasure.value}}
       Measure Eqv: {{selectedMeasure.eqv}} 
   </h2>
-  is selected fmeasure
+  is selected measure
 </div>
+
+
+
+<div *ngIf="nutrients">
+
+  Food Nutrients:
+
+<ul class="heroes">
+    <li *ngFor="let nutrient of nutrients" (click)="onSelectNutrient(nutrient)"
+      [class.selected]="nutrient === selectedNutrient">
+    <span class="badge">Nutrient_id: {{nutrient.nutrient_id}}</span>
+    <span>Name: {{nutrient.name}}</span>
+    <span>grp: {{nutrient.grp}}</span>
+    <span>Unit: {{nutrient.unit}}</span>
+    <span>Value: {{nutrient.value}}</span>
+    <span>Ndbno: {{nutrient.ndbno}}</span>
+</li>
+
+</ul>
+</div>
+
+
 
 
 
@@ -57,7 +79,7 @@
 
   Food Measures:
 
-<ul class="measures">
+<ul class="heroes">
     <li *ngFor="let measure of measures" (click)="onSelectMeasure(measure)"
       [class.selected]="measure === selectedMeasure">
     <span class="badge">Label: {{measure.label}}</span>

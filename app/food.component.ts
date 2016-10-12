@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Food } from './food';
 import { FoodService } from './food.service';
 import { Measure } from './measure';
+import { Nutrient } from './nutrient';
 
 @Component({
   moduleId: module.id,
@@ -20,6 +21,8 @@ export class FoodsComponent {
   foodCount:number;
   measures: Measure[];
   selectedMeasure: Measure;
+  nutrients: Nutrient[];
+  selectedNutrient: Nutrient;
 
 
   constructor(
@@ -46,14 +49,20 @@ export class FoodsComponent {
   //  }
 
    onKey(event:any) {
- 
-    this.foods = new Array<Food>();
-    this.foodCount = 0;
+    
+    
     this.values = "";
     this.values += event.target.value;
     console.log(this.values);
 
     if(this.values.length >= 3) {
+
+
+    this.foodCount = 0;
+    this.foods = null;
+    this.selectedMeasure = null;
+    this.selectedFood = null;
+    
 
     this.foodService.getFoodByChar(this.values).subscribe(foods => {
     this.foods = foods;
@@ -67,25 +76,48 @@ export class FoodsComponent {
 
     onSelectFood(food: Food): void {
     this.selectedFood = food;
-    this.foods = new Array<Food>();
+    this.foods = null;
     
-    this.getMeasuresByFoodNdbno(this.selectedFood);
+    //this.getMeasuresByFoodNdbno(this.selectedFood);
+    this.getNutrientsByFoodNdbno(this.selectedFood);
 
   }
 
 
- getMeasuresByFoodNdbno(selectedFood:Food): void {
+    onSelectNutrient(nutrient: Nutrient): void {
+    this.selectedNutrient = nutrient;
+    this.nutrients = null;
+   
+    this.getMeasuresByFoodNdbno(this.selectedFood);
 
-     let ndbno = selectedFood.ndbno;
+
+  }
+
+
+
+
+
+
+
+
+
+    getMeasuresByFoodNdbno(selectedFood:Food): void {
+
+     let ndbno: number = selectedFood.ndbno;
      console.log("In component getFoodByNdbno ");
     
      this.foodService.getMeasureByFoodNdbno(ndbno).subscribe(measures => this.measures = measures,
-                        error =>  this.errorMessage = <any>error);
+                        error =>  this.errorMessage = <string>error);
                     
     }
 
-    onSelectMeasure(measure: Measure): void {
-    this.selectedMeasure = measure;
+    getNutrientsByFoodNdbno(selectedFood:Food): void {
+
+    let ndbno: number = this.selectedFood.ndbno;
+  
+    this.foodService.getNutrientByFoodNdbno(ndbno).subscribe(nutrients => this.nutrients = nutrients,
+                        error =>  this.errorMessage = <string>error);
+
     
   }
 
