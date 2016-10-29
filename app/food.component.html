@@ -1,7 +1,28 @@
+
+<!-- ------------------------------------------------------
+  
+Errors
+  
+--------------------------------------------------------- -->
+
+<div *ngIf="errorMessage">
+  <h2>
+    {{errorMessage}} 
+  </h2>
+  is an error
+</div>
+
+<!-- ------------------------------------------------------
+  
+Search
+  
+--------------------------------------------------------- -->
+
+
 <h2>Search Food</h2>
 <div>
    <label>Food Name:</label> 
-   <input #foodName value="" (keyup)="onKey($event)"/>
+   <input let foodName value="" (keyup)="onKey($event)"/>
     {{foodCount | number}} 
   <!--<label>Food Ndbno:</label> <input #foodNdbno value="1225"/>-->
   <!--<button (click)="getFoodByNdbno(foodNdbno.value);">
@@ -19,6 +40,13 @@
   is returned food
 </div>-->
 
+<!-- ------------------------------------------------------
+  
+Selected
+  
+--------------------------------------------------------- -->
+
+
 <div *ngIf="selectedFood">
   <h2> Food Id: {{selectedFood.ndbno}}
        Food Name: {{selectedFood.name}} 
@@ -26,13 +54,49 @@
   is selected food
 </div>
 
-<div *ngIf="errorMessage">
-  <h2>
-    {{errorMessage}} 
+<br>
+
+<div *ngIf="selectedMeasure">
+  <h2>Measure Id: {{selectedMeasure.id}}
+      Measure Label: {{selectedMeasure.label}}
+      Measure Eqv: {{selectedMeasure.eqv}}
+      Measure Qty: {{selectedMeasure.qty}}
+      Measure Value: {{selectedMeasure.value}}
+      Measure Ndbno_id: {{selectedMeasure.ndbno_id}}
+      Measure Nutrient_id: {{selectedMeasure.nutrient_id}}
   </h2>
-  is an error
+  is selected measure
 </div>
 
+<br>
+
+<div *ngIf="selectedNutrient">
+  <h2>Nutrient Id: {{selectedNutrient.id}}
+      Nutrient_id: {{selectedNutrient.nutrient_id}} 
+      Nutrient Name: {{selectedNutrient.name}}
+      Nutrient Grp: {{selectedNutrient.grp}}
+      Nutrient Unit: {{selectedNutrient.unit}}
+      Nutrient Value: {{selectedNutrient.value}}
+      Nutrient Ndbno: {{selectedNutrient.ndbno}}
+  </h2>
+  is selected nutrient
+</div>
+
+
+<div *ngIf="selectedLabel">
+  <h2> Selected Label: {{selectedLabel}}      
+  </h2>
+  is selected label
+</div>
+
+<!-- ------------------------------------------------------
+  
+Lists
+  
+--------------------------------------------------------- -->
+
+
+<div *ngIf="foods">
 
 <ul class="heroes">
     <li *ngFor="let food of foods" (click)="onSelectFood(food)"
@@ -40,20 +104,13 @@
     
     <span class="badge">{{food.ndbno}}</span>
     <span>{{food.name}}</span>
-</li>
+    </li>
 
 </ul>
 
-<div *ngIf="selectedMeasure">
-  <h2>Measure Value: {{selectedMeasure.value}}
-      Measure Eqv: {{selectedMeasure.eqv}} 
-  </h2>
-  is selected measure
 </div>
 
-
-
-<div *ngIf="nutrients">
+<!--<div *ngIf="nutrients">
 
   Food Nutrients:
 
@@ -61,33 +118,80 @@
     <li *ngFor="let nutrient of nutrients" (click)="onSelectNutrient(nutrient)"
       [class.selected]="nutrient === selectedNutrient">
     <span class="badge">Nutrient_id: {{nutrient.nutrient_id}}</span>
+    <span>Id PK: {{nutrient.id}}</span>
     <span>Name: {{nutrient.name}}</span>
-    <span>grp: {{nutrient.grp}}</span>
+    <span>Grp: {{nutrient.grp}}</span>
     <span>Unit: {{nutrient.unit}}</span>
     <span>Value: {{nutrient.value}}</span>
     <span>Ndbno: {{nutrient.ndbno}}</span>
 </li>
 
 </ul>
-</div>
+</div>-->
 
 
 
 
 
-<div *ngIf="measures">
+<!--<div *ngIf="measures">
 
   Food Measures:
 
 <ul class="heroes">
+
     <li *ngFor="let measure of measures" (click)="onSelectMeasure(measure)"
       [class.selected]="measure === selectedMeasure">
     <span class="badge">Label: {{measure.label}}</span>
+    <span>Id: {{measure.id}}</span>
     <span>Eqv: {{measure.eqv}}</span>
     <span>Qty: {{measure.qty}}</span>
     <span>Value: {{measure.value}}</span>
-</li>
+    <span>Ndbno: {{measure.ndbno_id}}</span>
+    <span>Nutrient Id: {{measure.nutrient_id}}</span>
+    </li>  
 
 </ul>
+</div>-->
+
+<div *ngIf="measures">
+<select [(ngModel)] = "selectedMeasure">
+<option  *ngFor="let measure of measures" [ngValue]="measure">
+
+{{measure.label}}
+
+</option>
+</select>
 </div>
+
+<br>
+
+
+
+
+<div *ngIf="measuresLabels">
+<select [(ngModel)] = "selectedLabel">
+<option  *ngFor="let label of measuresLabels" [ngValue]="label.label">
+
+{{label.label}}
+
+</option>
+</select>
+</div>
+
+<br>
+
+
+<div *ngIf="measuresLabels">
+
+<h2>How Much {{selectedFood.name}}?</h2>
+<div>
+   <label>Amount:</label> 
+   <input [(ngModel)] = "amount"/> {{amount}}
+</div>
+
+
+</div>
+
+
+
 

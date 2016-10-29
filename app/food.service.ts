@@ -47,7 +47,6 @@ export class FoodService {
     }
 
 
-
     getAllFoods(): Observable<any> {
 
         console.log("URL: " + this.foodUrl);
@@ -83,6 +82,16 @@ export class FoodService {
             .map(this.extractDataJSON)
             .catch(this.handleError);
     }
+
+    getMeasuresLabelsByFoodNdbno(ndbno: number): Observable<any> {
+        const url = `${this.measureUrl}/labels/${ndbno}`;
+        console.log("URL: " + url);
+        return this.http
+            .get(url, { headers: this.headersJSON })
+            .map(this.extractDataJSON)
+            .catch(this.handleError);
+    }
+
 
     getNutrientByFoodNdbno(ndbno: number):  Observable<any> {
         const url = `${this.nutrientUrl}/${ndbno}`;
