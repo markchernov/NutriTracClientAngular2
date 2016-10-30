@@ -17,6 +17,7 @@ import { Nutrient } from './nutrient';
   
 })
 export class FoodsComponent {
+
   foods: Food[];
   selectedFood: Food;
   errorMessage: string;
@@ -28,7 +29,9 @@ export class FoodsComponent {
   selectedNutrient: Nutrient;
   measuresLabels: String [];
   selectedLabel: string;
-  amount: number;
+  amountNumber: number;
+  choosenNutrients: Nutrient[];
+  
 
   constructor(
     private router: Router,
@@ -53,6 +56,18 @@ export class FoodsComponent {
                     
   //  }
 
+   
+    /****************************************************************************************  
+
+     FOOD
+
+    *****************************************************************************************/
+   
+   
+   
+   
+   
+   
    onKey(event:any) {
     
     
@@ -94,7 +109,9 @@ export class FoodsComponent {
     }
   }
 
-    onSelectFood(food: Food): void {
+
+
+  onSelectFood(food: Food): void {
     this.selectedFood = food;
     this.foods = null;
     
@@ -105,9 +122,10 @@ export class FoodsComponent {
   }
 
 
-    onSelectNutrient(nutrient: Nutrient): void {
-    this.selectedNutrient = nutrient;
-    this.nutrients = null;
+  onSelectNutrient(nutrient: Nutrient): void {
+
+   this.selectedNutrient = nutrient;
+   this.nutrients = null;
    
   }
 
@@ -120,7 +138,21 @@ export class FoodsComponent {
   }
 
 
-  
+  addFoodToMeal()  {
+
+
+   console.log("Food: "  + this.selectedFood + " added to meal ")
+
+
+  }
+
+
+    
+    /****************************************************************************************  
+
+     MEASURE
+
+    *****************************************************************************************/
 
 
 
@@ -147,6 +179,13 @@ export class FoodsComponent {
 
 
 
+   /****************************************************************************************  
+
+     NUTRIENT
+
+    *****************************************************************************************/
+
+
 
     getNutrientsByFoodNdbno(selectedFood:Food): void {
 
@@ -157,5 +196,66 @@ export class FoodsComponent {
   }
 
 
-}
+
+    onAmount(): void {
+ 
+    if( this.amountNumber && this.selectedLabel )  {
+
+    this.choosenNutrients = new Array();  
+
+    console.log("onAmount()");
+    // loop thru all measures 
+    this.measures.forEach(measure => {
+
+      console.log("Inside this.measures.forEach");
+      // if labels are the same
+      if(measure.label == this.selectedLabel) {
+
+         console.log("Inside if(measure.label == this.selectedLabel) ");
+         //console.log(this.selectedLabel);  
+
+         console.log(measure);
+          // loop thru all nutrients
+          this.nutrients.forEach(nutrient => {
+            
+                //console.log("Inside this.nutrients.forEach");
+                console.log(nutrient);
+                // if nutrient PK is linked to measure by FK 
+                if(nutrient.id == measure.nutrient_id)  {
+                     // save it to new array
+
+                      console.log(nutrient);
+                      console.log("if(nutrient.nutrient_id === measure.nutrient_id) ")
+                      console.log(nutrient.nutrient_id);
+                     // save it times the number of amount of selectedMeasure 
+                     for(let i = 0; i < this.amountNumber; i++)  {
+
+                          this.choosenNutrients.push( nutrient );
+
+                     }
+                }
+          });
+  
+          // this.nutrients.filter(nutrient => 
+          // nutrient.nutrient_id === this.selectedMeasure.nutrient_id )      
+
+      }   // end inner loop
+
+      console.log(this.choosenNutrients);
+      
+    });   // end outer loop
+
+    // calculate
+
+    }  // end if both this.amountNumber && this.selectedLabel
+
+  }  // end on Amount()
+
+
+
+
+
+
+
+}  // end class
 

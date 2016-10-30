@@ -20,7 +20,7 @@ import { HeroDetailComponent }  from './hero-detail.component';
 import { HeroService }          from './hero.service';
 import { FoodService }          from './food.service';
 import { routing }              from './app.routing';
-import {HeroSearchComponent }   from './hero-search.component';
+import { HeroSearchComponent }   from './hero-search.component';
 import { UserService }          from './user.service';
 import { UsersComponent }       from './user.component';
 import { FoodsComponent }       from './food.component';

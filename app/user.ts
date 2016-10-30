@@ -8,5 +8,4 @@ export class User {
   height: number;
   weight: number;
   active: number;
-
 }
