@@ -6,6 +6,7 @@ import { HeroesComponent }      from './heroes.component';
 import { HeroDetailComponent }  from './hero-detail.component';
 import { UsersComponent }      from './user.component';
 import { FoodsComponent }      from './food.component';
+import { MealsComponent }      from './meal.component';
 
 const appRoutes: Routes = [
   {
@@ -32,6 +33,10 @@ const appRoutes: Routes = [
   {
     path: 'foods',
     component: FoodsComponent
+  },
+    {
+    path: 'meals',
+    component: MealsComponent
   }
 ];
 

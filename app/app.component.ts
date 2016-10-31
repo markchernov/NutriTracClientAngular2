@@ -1,19 +1,35 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { UsersComponent } from './user.component';
+import { User } from './user';
+
+
 
 @Component({
   selector: 'my-app',
-  template: `
-    <h1>{{title}}</h1>
-    <nav>
-      <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
-      <a routerLink="/heroes" routerLinkActive="active">Heroes</a>
-      <a routerLink="/users" routerLinkActive="active">Users</a>
-      <a routerLink="/foods" routerLinkActive="active">Foods</a>
-    </nav>
-    <router-outlet></router-outlet>
-  `,
+  templateUrl: 'app/app.component.html',
   styleUrls: ['app/app.component.css'],
+  inputs: ['result']
+
 })
+
+
 export class AppComponent {
   title = 'NutriTrac Foods App';
+  //@Input('user') user: User;
+  constructor() {}
+
+
+   selectedUserName: User;
+   name: string;
+   
+   
+   userUpdated(user: User) {
+
+   console.log("userUpdated")
+   this.selectedUserName = user;
+   this.name = this.selectedUserName.firstName;
+   console.log(this.name);
+
+ }
+
 }

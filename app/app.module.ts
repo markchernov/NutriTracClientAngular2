@@ -13,17 +13,26 @@ import './rxjs-extensions';
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService }  from './in-memory-data.service';
 
+import { routing }              from './app.routing';
+
+
 import { AppComponent }         from './app.component';
+
+
 import { DashboardComponent }   from './dashboard.component';
 import { HeroesComponent }      from './heroes.component';
 import { HeroDetailComponent }  from './hero-detail.component';
 import { HeroService }          from './hero.service';
-import { FoodService }          from './food.service';
-import { routing }              from './app.routing';
 import { HeroSearchComponent }   from './hero-search.component';
-import { UserService }          from './user.service';
+
 import { UsersComponent }       from './user.component';
+import { UserService }          from './user.service';
+
+import { MealsComponent }       from './meal.component';
+import { MealService }          from './meal.service';
+
 import { FoodsComponent }       from './food.component';
+import { FoodService }          from './food.service';
 
 @NgModule({
   imports: [
@@ -40,12 +49,14 @@ import { FoodsComponent }       from './food.component';
     HeroesComponent,
     HeroSearchComponent,
     UsersComponent,
-    FoodsComponent
+    FoodsComponent,
+    MealsComponent,
   ],
   providers: [
     HeroService,
     UserService,
-    FoodService
+    FoodService,
+    MealService
   ],
   bootstrap: [ AppComponent]
 })

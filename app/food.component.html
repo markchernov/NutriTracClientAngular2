@@ -205,17 +205,15 @@ LABEL DROPDOWN AND AMOUNT
 
 <label>Measure Label: </label> 
 
-<!--<input type="radio">-->
+<div *ngFor="let label of measuresLabels" >
+<input type="radio" value="{{label.label}}"  [(ngModel)] = "selectedLabel" > {{label.label}}
+</div>
 
-
-
-<select [(ngModel)] = "selectedLabel" (change)="onAmount()">
+<!--<select [(ngModel)] = "selectedLabel" (change)="onAmount()">
 <option  *ngFor="let label of measuresLabels" [ngValue]="label.label" >
-
 {{label.label}}
-
 </option>
-</select>
+</select>-->
 </div>
 
 
