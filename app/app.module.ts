@@ -34,6 +34,8 @@ import { MealService }          from './meal.service';
 import { FoodsComponent }       from './food.component';
 import { FoodService }          from './food.service';
 
+import { LoginComponent }       from './login.component';
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -51,6 +53,7 @@ import { FoodService }          from './food.service';
     UsersComponent,
     FoodsComponent,
     MealsComponent,
+    LoginComponent
   ],
   providers: [
     HeroService,

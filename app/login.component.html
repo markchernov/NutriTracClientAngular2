@@ -1,0 +1,15 @@
+<div *ngIf="!selectedUser">
+
+<h2 >Log In</h2>
+<div>
+  <label>User email:</label> <input #userEmail value="jeffrey.leupp@gmail.com"/>
+  <label>User password:</label> <input #userPassword value="12345"/>
+  <button (click)="login(userEmail.value,userPassword.value); userEmail.value=''; userPassword.value=''; ">
+    Login
+  </button>
+    <button (click)="ping();">
+    Ping
+  </button>
+</div>
+
+</div>

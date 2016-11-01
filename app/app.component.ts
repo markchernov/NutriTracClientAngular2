@@ -8,14 +8,13 @@ import { User } from './user';
   selector: 'my-app',
   templateUrl: 'app/app.component.html',
   styleUrls: ['app/app.component.css'],
-  inputs: ['result']
 
 })
 
 
 export class AppComponent {
   title = 'NutriTrac Foods App';
-  //@Input('user') user: User;
+  
   constructor() {}
 
 
@@ -30,6 +29,6 @@ export class AppComponent {
    this.name = this.selectedUserName.firstName;
    console.log(this.name);
 
- }
+   }
 
 }

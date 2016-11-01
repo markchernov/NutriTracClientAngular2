@@ -1,9 +1,10 @@
-import { Component, OnInit , Input, Output, EventEmitter} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { User } from './user';
-import { Meal } from './meal';
 import { UserService } from './user.service';
+
+import { FormsModule } from '@angular/forms';
 
 //import {Pipe, PipeTransform} from '@angular/core';  // to iterate over object
 
@@ -26,32 +27,31 @@ import { UserService } from './user.service';
   
 })
 export class UsersComponent {
-  users: User[]; 
-  selectedUser: User;
+  users: User[];   
   pinged: string;
   errorMessage: string;
-  selectedUserMeals: Meal[];
+  
 
-  @Output() userUpdated: EventEmitter<User> = new EventEmitter<User>();
+
 
   constructor(
     private router: Router,
     private userService: UserService) { }
 
 
-    login(email:string, password:string): void  {
+    // login(email:string, password:string): void  {
 
-       console.log("In component email: "+ email +" password: "+password);
-       this.userService.login(email,password).subscribe(userObject => this.selectedUser = <User>userObject,
-                        error =>  this.errorMessage = <any>error, 
+    //    console.log("In component email: "+ email +" password: "+password);
+    //    this.userService.login(email,password).subscribe(userObject => this.selectedUser = <User>userObject,
+    //                     error =>  this.errorMessage = <any>error, 
 
-                        // onComplete call
-                        () => { this.userUpdated.emit(this.selectedUser);
-                              console.log(this.selectedUser);
+    //                     // onComplete call
+    //                     () => { this.userUpdated.emit(this.selectedUser);
+    //                           console.log(this.selectedUser);
                                              
-                         });
+    //                      });
 
-    }
+    // }
 
 
    ping(): void {
