@@ -1,0 +1,62 @@
+<div *ngIf="errorMessage">
+  <h2>
+    {{errorMessage}} 
+  </h2>
+  is an error
+</div>
+
+
+
+
+<div *ngIf="user">
+  <h2>{{user.firstName}} details!</h2>
+  <div>
+    <label>Email:  </label> {{user.email}}</div>
+  <div>
+    <label>First Name:  </label>
+    <input [(ngModel)]="user.firstName" placeholder="First Name" />
+  </div>
+
+    <div>
+    <label>Last Name:   </label>
+    <input [(ngModel)]="user.lastName" placeholder="Last Name" />
+   </div>
+
+   <div>
+    <label>Birthday:   </label>
+    <input [(ngModel)]="user.birthday" placeholder="Birthday" />
+   </div>
+
+    <div>
+    <label>Password:   </label>
+    <input [(ngModel)]="user.password" placeholder="Password" />
+   </div>
+
+    <div>
+    <label>Sex:   </label>
+    <input [(ngModel)]="user.sex" placeholder="Sex" />
+   </div>
+
+   <div>
+    <label>Heigth:   </label>
+    <input [(ngModel)]="user.height" placeholder="Height" />
+   </div>
+
+    <div>
+    <label>Weight:   </label>
+    <input [(ngModel)]="user.weight" placeholder="Weight" />
+   </div>
+
+   <div>
+    <label>Active:   </label>
+    <input [(ngModel)]="user.active" placeholder="Active" />
+   </div>
+
+  <button (click)="saveUser()">Save</button>
+
+  <button (click)="goBack()">Back</button>
+</div>
+
+
+
+

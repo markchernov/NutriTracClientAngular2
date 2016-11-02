@@ -20,8 +20,11 @@ export class UserService {
   });
   private headersText = new Headers({ 'Content-Type': 'application/text' });
 
-  private userUrl = 'https://nutritrac-server-markche.c9users.io/users/login';  // URL to web api
-  private pingUrl = 'https://nutritrac-server-markche.c9users.io/ping';  // URL to web api
+  private userUrl = 'https://nutritrac-server-markche.c9users.io/users/';  // URL to web
+  private usersUrl = 'https://nutritrac-server-markche.c9users.io/users/users';  // URL to web api
+  private loginUrl = 'https://nutritrac-server-markche.c9users.io/users/login';  // URL to web api
+  private userUrlCreate = 'https://nutritrac-server-markche.c9users.io/users/new';
+  private pingUrl = 'https://nutritrac-server-markche.c9users.io/ping/ping';  // URL to web api
  
 
 
@@ -82,14 +85,27 @@ export class UserService {
 
 
 
-  login(email: string, password: string): Observable<any> {
+    login(email: string, password: string): Observable<any> {
 
-    console.log("URL: " + this.userUrl);
+    console.log("URL: " + this.loginUrl);
     console.log("In service email: " + email + " password: " + password);
     let myBody = JSON.stringify({ email: email, password: password });
     console.log("myBody: " + myBody);
 
-    return this.http.post(this.userUrl, myBody, { headers: this.headersJSON }).map(this.extractDataJSON)
+    return this.http.post(this.loginUrl, myBody, { headers: this.headersJSON }).map(this.extractDataJSON)
+      .catch(this.handleError);
+
+  }
+
+   
+
+    getUser( email: string ): Observable<any> {
+
+    console.log("URL: " + this.userUrl);
+    console.log("In service getUser( email: string )   " + email );
+    let url = `${this.userUrl}/${email}`;
+    
+    return this.http.get( url, { headers: this.headersJSON }).map(this.extractDataJSON)
       .catch(this.handleError);
 
   }
@@ -98,31 +114,74 @@ export class UserService {
 
 
 
-  // update(user: User): Promise<User> {
-  //   const url = `${this.userUrl}/${user.email}`;
-  //   return this.http
-  //     .put(url, JSON.stringify(user), { headers: this.headersJSON })
-  //     .toPromise()
-  //     .then(() => user)
-  //     .catch(this.handleError);
-  // }
+
+    getUsers(): Observable<any> {
+
+    console.log("URL: " + this.usersUrl);
+    console.log("In service getUsers()");
+  
+    return this.http.get( this.usersUrl, { headers: this.headersJSON }).map(this.extractDataJSON)
+      .catch(this.handleError);
+
+  }
+
+   
 
 
-  // create(name: string): Promise<User> {
-  //   return this.http
-  //     .post(this.userUrl, JSON.stringify({ name: name }), { headers: this.headersJSON })
-  //     .toPromise()
-  //     .then(res => res.json().data)
-  //     .catch(this.handleError);
-  // }
 
-  // delete(id: number): Promise<void> {
-  //   const url = `${this.userUrl}/${id}`;
-  //   return this.http.delete(url, { headers: this.headersJSON })
-  //     .toPromise()
-  //     .then(() => null)
-  //     .catch(this.handleError);
-  // }
+
+    createUser(
+      
+    //  email: string,firstName: string, lastName: string, birthdate: Date, password: string,
+    //  sex: string, height: number, weight: number, active: number
+    
+    user : User
+    
+    ): Observable<any> {
+
+    console.log("URL: " + this.loginUrl);
+    console.log("In service createUser");
+    let myBody = JSON.stringify(
+      
+    //   { email: email, firstName: firstName,lastName: lastName, password: password,
+    //  sex: sex, height: height, weight: weight, active: active }
+     
+     user
+
+     );
+    console.log("myBody: " + myBody);
+
+    return this.http.post(this.userUrlCreate, myBody, { headers: this.headersJSON }).map(this.extractDataJSON)
+      .catch(this.handleError);
+
+  }
+
+
+
+
+  updateUser(user: User): Observable<any> {
+    const url = `${this.userUrl}/${user.email}`;
+    
+
+    let myBody = JSON.stringify( user );
+    console.log("myBody: " + myBody);
+
+    return this.http.put( url, myBody, { headers: this.headersJSON }).map(this.extractDataJSON)
+      .catch(this.handleError);
+  }
+
+
+  deleteUser(email: string): Observable<any> {
+
+    const url = `${this.userUrl}/${email}`;
+
+    console.log("URL: " + this.userUrl);
+    console.log("In service deleteUser(email: string): " + email );
+
+    return this.http.delete(url , { headers: this.headersJSON }).map(this.extractDataJSON)
+      .catch(this.handleError);
+
+  }
 
 
 

@@ -2,7 +2,7 @@ export class User {
   email: string;
   firstName: string;
   lastName: string;
-  birthdate: number;
+  birthdate: Date;
   password: string;
   sex: string;
   height: number;

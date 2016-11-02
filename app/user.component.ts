@@ -30,6 +30,7 @@ export class UsersComponent {
   users: User[];   
   pinged: string;
   errorMessage: string;
+  selectedUser: User;
   
 
 
@@ -37,21 +38,6 @@ export class UsersComponent {
   constructor(
     private router: Router,
     private userService: UserService) { }
-
-
-    // login(email:string, password:string): void  {
-
-    //    console.log("In component email: "+ email +" password: "+password);
-    //    this.userService.login(email,password).subscribe(userObject => this.selectedUser = <User>userObject,
-    //                     error =>  this.errorMessage = <any>error, 
-
-    //                     // onComplete call
-    //                     () => { this.userUpdated.emit(this.selectedUser);
-    //                           console.log(this.selectedUser);
-                                             
-    //                      });
-
-    // }
 
 
    ping(): void {
@@ -69,40 +55,57 @@ export class UsersComponent {
 
 
 
-//   getHeroes(): void {
-//     this.heroService.getHeroes().then(heroes => this.heroes = heroes);
-//   }
+  ngOnInit(): void {
+    this.getUsers();
+  }
 
-//   ngOnInit(): void {
-//     this.getHeroes();
-//   }
+  onSelect(user: User): void {
+    this.selectedUser = user;
+  }
 
-//   onSelect(hero: Hero): void {
-//     this.selectedHero = hero;
-//   }
+  goToUserDetail(): void {
+    this.router.navigate(['/userdetail', this.selectedUser.email]);
+  }
 
-//   gotoDetail(): void {
-//     this.router.navigate(['/detail', this.selectedHero.id]);
-//   }
+  goToCreateUser(): void {
+    this.router.navigate(['/createuser']);
+  }
 
-//   add(name: string): void {
-//   name = name.trim();
-//   if (!name) { return; }
-//   this.heroService.create(name)
-//     .then(hero => {
-//       this.heroes.push(hero);
-//       this.selectedHero = null;
-//     });
-// }
 
-// delete(hero: Hero): void {
-//   this.heroService
-//       .delete(hero.id)
-//       .then(() => {
-//         this.heroes = this.heroes.filter(h => h !== hero);
-//         if (this.selectedHero === hero) { this.selectedHero = null; }
-//       });
-// }
+
+
+
+
+  
+
+  getUsers(): void {
+    this.userService.getUsers().subscribe(users  => this.users = <User[]>users,
+                        error =>  this.errorMessage = <any>error,  
+
+                       
+                        // onComplete call
+                        () => { 
+
+                              console.log(this.users);
+                                             
+                         });
+  }
+
+
+
+  delete(user: User): void {
+
+  this.userService.deleteUser(user.email).subscribe(user  => this.selectedUser = <User>user,
+                        error =>  this.errorMessage = <any>error,  
+
+                       
+                        // onComplete call
+                        () => { 
+                                                      
+                              console.log(this.selectedUser);
+                                             
+                         });
+    };
 
 }
 
