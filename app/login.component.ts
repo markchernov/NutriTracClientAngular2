@@ -18,8 +18,11 @@ import { UserService } from './user.service';
 
   @Output() userUpdated: EventEmitter<User> = new EventEmitter<User>();    
    
-  selectedUser: User;
-  errorMessage: any;
+  private selectedUser: User;
+  private loggedInUser: User;
+  private errorMessage: any;
+
+
 
   constructor(
 
@@ -35,7 +38,12 @@ import { UserService } from './user.service';
                        
                         // onComplete call
                         () => { this.userUpdated.emit(this.selectedUser);
+                              console.log("this.selectedUser  emited from login.component.ts    ");
                               console.log(this.selectedUser);
+                              
+                              console.log("this.loggedInUser after getLoggInUser() login.component.ts    ");
+                              console.log(this.loggedInUser = this.userService.getLoggedInUser());
+
                                              
                          });
 

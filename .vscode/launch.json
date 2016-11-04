@@ -32,6 +32,18 @@
             "outFiles": [],
             "localRoot": "${workspaceRoot}",
             "remoteRoot": null
+        },
+
+
+        {
+            "name": "Start Chrome against localhost , with sourcemaps",
+            "type": "chrome",
+            "request": "launch",
+            "url" : "http://localhost:3000",       
+            "sourceMaps": true,
+            "webRoot": "${workspaceRoot}",
+            "userDataDir": "${workspaceRoot}/out/chrome"
+             
         }
     ]
 }

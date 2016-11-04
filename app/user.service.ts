@@ -14,6 +14,28 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class UserService {
 
+  static  loggedInUser: User;
+
+  public getLoggedInUser <User> () {
+
+   return UserService.loggedInUser;
+
+  }
+
+  private setLoggedInUser(user: User)   {
+
+      console.log("user inside setLoggedInUser() " );
+      console.log(user);
+      
+      UserService.loggedInUser = user; 
+
+      return UserService.loggedInUser;
+
+  }
+
+
+
+
   private headersJSON = new Headers({
     'Content-Type': 'application/json',
     //'Access-Control-Allow-Origin': 'true', 'Access-Control-Allow-Credentials': 'true',
@@ -48,7 +70,7 @@ export class UserService {
   }
 
 
-  pingJava(): Observable<any> {
+  private pingJava(): Observable<any> {
 
     console.log("In service ping ");
     console.log("URL: " + this.pingUrl);
@@ -58,7 +80,7 @@ export class UserService {
       .catch(this.handleError);
   }
 
-  ping(): Observable<any> {
+  private ping(): Observable<any> {
 
     console.log("In service ping ");
     console.log("URL: " + this.pingUrl);
@@ -69,7 +91,10 @@ export class UserService {
   }
 
 
-  private extractDataJSON(res: Response) {
+
+
+
+    private extractDataJSON(res: Response) {
     console.log("Response: " + res);
     let body: any;
     if (res.text()) {
@@ -80,26 +105,33 @@ export class UserService {
     console.log("In service extractDataJSON() body: ");
     console.log(body);
 
+    //UserService.loggedInUser = body || {};
+    //this.setLoggedInUser(body);
+    //console.log("this.getLoggedInUser()");
+    //console.log(this.getLoggedInUser());
+
     return body || {};
+
   }
 
 
 
-    login(email: string, password: string): Observable<any> {
+
+    private login(email: string, password: string): Observable<any> {
 
     console.log("URL: " + this.loginUrl);
     console.log("In service email: " + email + " password: " + password);
     let myBody = JSON.stringify({ email: email, password: password });
     console.log("myBody: " + myBody);
 
-    return this.http.post(this.loginUrl, myBody, { headers: this.headersJSON }).map(this.extractDataJSON)
+    return this.http.post(this.loginUrl, myBody, { headers: this.headersJSON }).map( this.extractDataJSON )
       .catch(this.handleError);
 
   }
 
    
 
-    getUser( email: string ): Observable<any> {
+    private getUser( email: string ): Observable<any> {
 
     console.log("URL: " + this.userUrl);
     console.log("In service getUser( email: string )   " + email );
@@ -115,13 +147,15 @@ export class UserService {
 
 
 
-    getUsers(): Observable<any> {
+    private getUsers(): Observable<any> {
 
     console.log("URL: " + this.usersUrl);
     console.log("In service getUsers()");
   
-    return this.http.get( this.usersUrl, { headers: this.headersJSON }).map(this.extractDataJSON)
-      .catch(this.handleError);
+    return this.http.get( this.usersUrl, { headers: this.headersJSON }).map( response  =>  { this.extractDataJSON })
+      .catch(this.handleError)
+      
+      // .map(this.setLoggedInUser ).catch(this.handleError);
 
   }
 
@@ -130,7 +164,7 @@ export class UserService {
 
 
 
-    createUser(
+    private createUser(
       
     //  email: string,firstName: string, lastName: string, birthdate: Date, password: string,
     //  sex: string, height: number, weight: number, active: number
@@ -141,14 +175,7 @@ export class UserService {
 
     console.log("URL: " + this.loginUrl);
     console.log("In service createUser");
-    let myBody = JSON.stringify(
-      
-    //   { email: email, firstName: firstName,lastName: lastName, password: password,
-    //  sex: sex, height: height, weight: weight, active: active }
-     
-     user
-
-     );
+    let myBody = JSON.stringify( user );
     console.log("myBody: " + myBody);
 
     return this.http.post(this.userUrlCreate, myBody, { headers: this.headersJSON }).map(this.extractDataJSON)
@@ -159,7 +186,7 @@ export class UserService {
 
 
 
-  updateUser(user: User): Observable<any> {
+    private updateUser(user: User): Observable<any> {
     const url = `${this.userUrl}/${user.email}`;
     
 
@@ -171,7 +198,7 @@ export class UserService {
   }
 
 
-  deleteUser(email: string): Observable<any> {
+    private deleteUser(email: string): Observable<any> {
 
     const url = `${this.userUrl}/${email}`;
 
@@ -182,10 +209,6 @@ export class UserService {
       .catch(this.handleError);
 
   }
-
-
-
-
 
 }
 
