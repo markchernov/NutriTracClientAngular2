@@ -14,32 +14,63 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class UserService {
 
-  static  loggedInUser: User;
 
-  public getLoggedInUser <User> () {
+
+  constructor(private http: Http,
+
+  ) { };
+
+
+
+  // STATIC
+
+
+  private static  loggedInUser: User;
+
+  public static getLoggedInUser  () {
 
    return UserService.loggedInUser;
 
   }
 
-  private setLoggedInUser(user: User)   {
+  public static setLoggedInUser(user: User)   {
 
       console.log("user inside setLoggedInUser() " );
       console.log(user);
       
       UserService.loggedInUser = user; 
 
-      return UserService.loggedInUser;
+  }
+
+  // FIELDS
+
+  private toReturn: any;
+
+  private  loggedInUser: User;
+
+  public  getLoggedInUser  () {
+
+   return this.loggedInUser;
+
+  }
+
+  public setLoggedInUser(user: User)   {
+
+      console.log("user inside setLoggedInUser() " );
+      console.log(user);
+      
+      this.loggedInUser = user; 
 
   }
 
 
-
+ // HEADERS/URLS
 
   private headersJSON = new Headers({
     'Content-Type': 'application/json',
     //'Access-Control-Allow-Origin': 'true', 'Access-Control-Allow-Credentials': 'true',
   });
+
   private headersText = new Headers({ 'Content-Type': 'application/text' });
 
   private userUrl = 'https://nutritrac-server-markche.c9users.io/users/';  // URL to web
@@ -49,12 +80,7 @@ export class UserService {
   private pingUrl = 'https://nutritrac-server-markche.c9users.io/ping/ping';  // URL to web api
  
 
-
-  constructor(private http: Http,
-
-  ) { };
-
-  private toReturn: any;
+  // METHODS
 
   private handleError(error: any) {
     console.error('An error occurred', error); // for demo purposes only
@@ -70,7 +96,7 @@ export class UserService {
   }
 
 
-  private pingJava(): Observable<any> {
+  public pingJava(): Observable<any> {
 
     console.log("In service ping ");
     console.log("URL: " + this.pingUrl);
@@ -80,7 +106,7 @@ export class UserService {
       .catch(this.handleError);
   }
 
-  private ping(): Observable<any> {
+  public ping(): Observable<any> {
 
     console.log("In service ping ");
     console.log("URL: " + this.pingUrl);
@@ -94,7 +120,7 @@ export class UserService {
 
 
 
-    private extractDataJSON(res: Response) {
+    private extractDataJSON(res: Response) : any {
     console.log("Response: " + res);
     let body: any;
     if (res.text()) {
@@ -104,11 +130,25 @@ export class UserService {
     }
     console.log("In service extractDataJSON() body: ");
     console.log(body);
-
+    // Works with static field
     //UserService.loggedInUser = body || {};
-    //this.setLoggedInUser(body);
-    //console.log("this.getLoggedInUser()");
-    //console.log(this.getLoggedInUser());
+
+    // Works with static methods
+    UserService.setLoggedInUser(body);
+    console.log("UserService.loggedInUser");
+    console.log(UserService.loggedInUser);
+
+    console.log("UserService.getLoggedInUser()");
+    console.log(UserService.getLoggedInUser());
+
+    // Does not work with instance methods
+    // this.setLoggedInUser(body);
+    // console.log("this.loggedInUser");
+    // console.log(this.loggedInUser);
+
+    // console.log("this.getLoggedInUser()");
+    // console.log(this.getLoggedInUser());
+
 
     return body || {};
 
@@ -117,7 +157,7 @@ export class UserService {
 
 
 
-    private login(email: string, password: string): Observable<any> {
+    public login(email: string, password: string): Observable<any> {
 
     console.log("URL: " + this.loginUrl);
     console.log("In service email: " + email + " password: " + password);
@@ -131,7 +171,7 @@ export class UserService {
 
    
 
-    private getUser( email: string ): Observable<any> {
+    public getUser( email: string ): Observable<any> {
 
     console.log("URL: " + this.userUrl);
     console.log("In service getUser( email: string )   " + email );
@@ -147,12 +187,12 @@ export class UserService {
 
 
 
-    private getUsers(): Observable<any> {
+    public getUsers(): Observable<any> {
 
     console.log("URL: " + this.usersUrl);
     console.log("In service getUsers()");
   
-    return this.http.get( this.usersUrl, { headers: this.headersJSON }).map( response  =>  { this.extractDataJSON })
+    return this.http.get( this.usersUrl, { headers: this.headersJSON }).map( this.extractDataJSON )
       .catch(this.handleError)
       
       // .map(this.setLoggedInUser ).catch(this.handleError);
@@ -164,7 +204,7 @@ export class UserService {
 
 
 
-    private createUser(
+    public createUser(
       
     //  email: string,firstName: string, lastName: string, birthdate: Date, password: string,
     //  sex: string, height: number, weight: number, active: number
@@ -175,6 +215,10 @@ export class UserService {
 
     console.log("URL: " + this.loginUrl);
     console.log("In service createUser");
+
+    console.log("user");
+    console.log(user);
+
     let myBody = JSON.stringify( user );
     console.log("myBody: " + myBody);
 
@@ -186,7 +230,7 @@ export class UserService {
 
 
 
-    private updateUser(user: User): Observable<any> {
+    public updateUser(user: User): Observable<any> {
     const url = `${this.userUrl}/${user.email}`;
     
 
@@ -198,7 +242,7 @@ export class UserService {
   }
 
 
-    private deleteUser(email: string): Observable<any> {
+    public deleteUser(email: string): Observable<any> {
 
     const url = `${this.userUrl}/${email}`;
 

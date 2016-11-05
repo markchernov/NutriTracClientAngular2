@@ -31,7 +31,7 @@ export class UsersComponent {
   pinged: string;
   errorMessage: string;
   selectedUser: User;
-  
+  deletedUser: Object;
 
 
 
@@ -95,14 +95,17 @@ export class UsersComponent {
 
   delete(user: User): void {
 
-  this.userService.deleteUser(user.email).subscribe(user  => this.selectedUser = <User>user,
+  this.userService.deleteUser(user.email).subscribe(user  => this.deletedUser = <User>user,
                         error =>  this.errorMessage = <any>error,  
 
                        
                         // onComplete call
                         () => { 
-                                                      
-                              console.log(this.selectedUser);
+
+                              let index = this.users.indexOf(user);
+
+                              this.users.splice(index, 1);                        
+                              console.log(this.deletedUser);
                                              
                          });
     };
