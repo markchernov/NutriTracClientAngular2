@@ -6,110 +6,111 @@ import { Food } from './food';
 import { MealService } from './meal.service';
 import { Measure } from './measure';
 import { Nutrient } from './nutrient';
-
+import { Meal } from './meal';
 
 
 @Component({
   moduleId: module.id,
   selector: 'my-meal',
-  templateUrl: 'food.component.html',
-  styleUrls: [ 'food.component.css' ],
+  templateUrl: 'meal.component.html',
+  styleUrls: [ 'meal.component.css' ],
   
 })
-export class MealsComponent {
+export class MealsComponent implements OnInit {
 
-
-  foods: Food[];
-
+  meal: Meal;
+  meals: Food[];
+  errorMessage: any;
+  values: string;
+  mealCount: number;
+  selectedMeal: Meal;
   
 
   constructor(
     private router: Router,
-    private foodService: MealService) { }
+    private mealService: MealService) { }
 
 
-  //   getAllFoods(): void {
 
-  //   console.log("In component getAllFoods ");
-    
-  //   this.foodService.getAllFoods().subscribe(foods => this.foods = foods,
-  //                       error =>  this.errorMessage = <any>error);
-                    
-  //  }
+    ngOnInit(): void {
 
-  //   getFoodByNdbno(ndbno:string): void {
+    this.getAllMeals();
 
-  //   console.log("In component getFoodByNdbno ");
-    
-  //   this.foodService.getFoodByNdbno(ndbno).subscribe(food => this.returnedFood = food,
-  //                       error =>  this.errorMessage = <any>error);
-                    
-  //  }
+  }
+
 
    
     /****************************************************************************************  
 
-     FOOD
+     MEAL
 
     *****************************************************************************************/
    
+    getAllMeals(): void {
+
+    console.log("In component getAllMeals ");
+    
+    this.mealService.getAllMeals().subscribe(meals => this.meals = meals,
+                        error =>  this.errorMessage = <any>error);
+                    
+   }
+
+
    
    
    
    
-   
-//    onKey(event:any) {
+   onKey(event:any) {
     
     
-//     this.values = "";
-//     this.values += event.target.value;
-//     console.log(this.values);
+    this.values = "";
+    this.values += event.target.value;
+    console.log(this.values);
 
-//     if(this.values.length >= 3) {
+    if(this.values.length >= 3) {
 
 
-//     this.foodCount = 0;
-//     this.foods = null;
-//     this.selectedMeasure = null;
-//     this.selectedFood = null;
+    this.mealCount = 0;
+    this.meals = null;
+    this.selectedMeal = null;
     
 
-//     this.foodService.getFoodByChar(this.values).subscribe(foods => {
+    this.mealService.getMealByChar(this.values).subscribe(meals => {
 
-//     if(foods.length >= 1)  
+    if(meals.length >= 1)  
 
-//     {
+    {
 
-//     this.foods = foods;
-//     console.log(this.foods);
-//     this.foodCount = foods.length;
+    this.meals = meals;
+    console.log(this.meals);
+    this.mealCount = meals.length;
 
-//     }
+    }
 
-//     else
-//     {
+    else
+    {
 
-//       this.errorMessage = "Problem finding Food";
+      this.errorMessage = "Problem finding Meal";
 
-//     }
+    }
 
   
-//     },
-//     error =>  this.errorMessage = <any>error);
-//     }
-//   }
+    },
+    error =>  this.errorMessage = <any>error);
+    }
+  }
 
 
 
-//   onSelectFood(food: Food): void {
-//     this.selectedFood = food;
-//     this.foods = null;
+  onSelectMeal(meal: Meal): void {
+    this.selectedMeal = meal;
+    this.meals = null;
     
-//     this.getMeasuresByFoodNdbno(this.selectedFood);
-//     this.getNutrientsByFoodNdbno(this.selectedFood);
-//     this.getMeasuresLabelsByFoodNdbno(this.selectedFood);
+    // this.getMeasuresByFoodNdbno(this.selectedFood);
+    // this.getNutrientsByFoodNdbno(this.selectedFood);
+    // this.getMeasuresLabelsByFoodNdbno(this.selectedFood);
 
-//   }
+  }
 
 
 //   onSelectNutrient(nutrient: Nutrient): void {

@@ -1,0 +1,102 @@
+
+<!-- ------------------------------------------------------
+  
+Errors
+  
+--------------------------------------------------------- -->
+
+<div *ngIf="errorMessage">
+  <h2>
+    {{errorMessage}} 
+  </h2>
+  is an error
+</div>
+
+<!-- ------------------------------------------------------
+  
+Search
+  
+--------------------------------------------------------- -->
+
+
+<h2>Search Meal</h2>
+<div>
+   <label>Meal Name:</label> 
+   <input let mealName value="" (keyup)="onKey($event)"/>
+    {{foodCount | number}} 
+  
+</div>
+
+
+
+<!-- ------------------------------------------------------
+  
+Selected
+  
+--------------------------------------------------------- -->
+
+
+<div *ngIf="selectedMeal">
+  <h2> Meal Id: {{selectedMeal.id}}
+       Meal Name: {{selectedMeal.name}} 
+  </h2>
+  is selected meal
+</div>
+
+
+
+<br>
+
+
+
+
+
+
+
+<!-- ------------------------------------------------------
+  
+Lists
+  
+--------------------------------------------------------- -->
+
+
+<div *ngIf="meals">
+
+<ul class="heroes">
+    <li *ngFor="let meal of meals" (click)="onSelectMeal(meal)"
+      [class.selected]="meal === selectedMeal">
+    
+    <span class="badge">{{meal.id}}</span>
+    <span>{{meal.name}}</span>
+    </li>
+
+</ul>
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- ------------------------------------------------------
+  
+USER MEALS
+  
+--------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+
